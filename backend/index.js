@@ -32,6 +32,11 @@ async function main() {
     res.send(orders);
   });
 
+  app.get("/counter", async (req, res) => {
+    const counter = await counterCollection.find({}).toArray();
+    res.send(counter);
+  });
+
   app.delete("/orders/:id", async (req, res) => {
     await orderCollection.deleteOne({ _id: Number(req.params.id) });
     res.send("ok");

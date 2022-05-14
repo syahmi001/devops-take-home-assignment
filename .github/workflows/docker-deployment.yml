@@ -49,11 +49,9 @@ jobs:
         uses: azure/setup-kubectl@v2.0
 
       # Set the target AKS cluster.
-      - uses: Azure/aks-set-context@v1
+      - uses: Azure/k8s-set-context@v2
         with:
-          creds: "${{ secrets.AZURE_CREDENTIALS }}"
-          cluster-name: akstest
-          resource-group: akstest-rg
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - uses: Azure/k8s-create-secret@v1.1
         with:

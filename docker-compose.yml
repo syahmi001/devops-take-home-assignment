@@ -21,10 +21,10 @@ services:
   frontend:
     image: syahmiahmad/feedmepos-frontend
     restart: always
-    environment:
-      BACKEND_URL: http://localhost:3000
     ports:
       - 3001:80
+    environment:
+      BACKEND_URL: http://localhost:3000
 
   mongo-express:
     image: mongo-express

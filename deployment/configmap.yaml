@@ -4,4 +4,4 @@ metadata:
   name: app-configmap
 data:
   database_url: mongodb-service
-  backend_url: backend-service
+  backend_url: http://backend-service

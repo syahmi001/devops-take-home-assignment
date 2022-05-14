@@ -14,3 +14,4 @@ terraform.tfstate
 
 # Kubernetes secret
 deployment/secret.yaml
+terraform/terraform.tfstate.backup

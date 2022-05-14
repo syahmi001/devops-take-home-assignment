@@ -60,12 +60,12 @@ jobs:
           container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
           secret-name: demo-k8s-secret
 
-      - uses: Azure/k8s-deploy@v1.4
+      - uses: Azure/k8s-deploy@v1
         with:
           action: deploy
           manifests: |
-            ${{ github.workspace }}/manifests/backend.yaml
-            ${{ github.workspace }}/manifests/frontend.yaml
+            manifests/backend.yaml
+            manifests/frontend.yaml
           images: |
             syahmiahmad/feedmepos-backend:latest
             syahmiahmad/feedmepos-frontend:latest

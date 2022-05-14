@@ -24,7 +24,7 @@ jobs:
           image: syahmiahmad/feedmepos-backend
           tags: latest
           registry: docker.io
-          dockerfile: backend/Dockerfile
+          directory: backend
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
@@ -34,7 +34,7 @@ jobs:
           image: syahmiahmad/feedmepos-frontend
           tags: latest
           registry: docker.io
-          dockerfile: frontend/Dockerfile
+          directory: frontend
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           

@@ -1,3 +1,11 @@
 # VScode environment
 .dccache
 .env
+*.tfvars
+!*.auto.tfvars
+.terraform
+.terraform.lock.hcl
+kubectl.exe
+kubectl.exe.sha256
+.terraform.tfstate.lock.info
+terraform.tfstate

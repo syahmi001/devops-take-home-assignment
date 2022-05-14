@@ -1,57 +1,37 @@
 ## FeedMe DevOps Engineer Take-Home Assignment
 
-Below is a take-home assignment before the interview for the position. You are required to
+Listed below are the technologies stack used for the project CI/CD pipeline and deployment.
 
-1. Understand the situation and use case. You may contact the interviewer for further clarification.
-2. Develop and run your deployment plan for Environment, FE, BE using your most efficient tools.
-3. Monitor the deployments, simulate some usage on frontend, document and analyze the result.
-4. Bring your deployment and result to the next interview session.
+### Terraform
 
-### Situation
+- Known for its Infrastructure as Code (IaC).
+- Used primarily for quick and convenient creation of Azure AKS cluster.
+- The Terraform config file can be found inside the terraform folder.
 
-McDonald is transforming their business during COVID-19. They wanted to build an online order system to tackle with current challenge. As one of the devops engineer in the project, your task is to deploy the prototype that completed by the development team and make it available to the internet for McDonald.
+### Azure AKS cluster
 
-Below is the information given by the development team
+- The platform of deployment chosen.
 
-### Global environment requirement
+### Docker and Docker-compose
 
-- start a mongodb instance, reachable for backend
+- Containerization of the apps in the project.
 
-### Starting the backend
+### Github Actions
 
-- required nodejs 14
-- set environment variable `MONGODB_URL="<mongodb connection url>"`, where `<mongodb connection url>` must match the [official mongodb node driver uri](https://docs.mongodb.com/drivers/node/current/fundamentals/connection/#connection-uri)
-- navigate to backend directory `cd backend`
-- build using npm `npm install`
-- start using node `node index.js`
+- The main CI/CD tool for this project.
+- Only triggers if there is any commit push to the main branch.
+- Mainly used to build docker image + push to the dockerhub and deploy to the AKS cluster.
 
-### Starting the frontend
+### Helm Chart
 
-- navigate to frontend directory `cd frontend`
-- modify the variable `backendUrl` to the actual backend endpoint
-- serve the http server root from `frontend/`
+- Used to quickly create pods related to the monitoring stack, which are Prometheus and Grafana.
 
-### Free Resource
+### NGINX
 
-You may use the following free resource for the deployment
+- Proxy used to configure the communication between FrontEnd and BackEnd inside the cluster.
+- Can also be used to redirect the default IP address provided by the LoadBalancer to an owned DNS domain.
 
-- https://www.mongodb.com/
-- https://www.heroku.com/
-- https://www.netlify.com/
-- https://vercel.com/
+### Prometheus and Grafana
 
-### Requirement
-
-Your deployment must meet the following criteria:
-
-- A working FE which reachable through internet
-- Monitoring and recovery for different resource
-- Documentation for the deployment plan
-
-### Tips on completing this assignment
-
-- Use the best tools you have on hand.
-- Try to scope your working hour within 3 hours (1 hour per day if you really busy) and avoid unnecessary optimization and documentation.
-- Communicate effectively like you are going to communicate with the actual team member.
-
-### TEST
+- The monitoring stack chosen to monitor the metric data collection and metric visualizations in the kubernetes cluster.
+- The metrics includes CPU, memory and storage of the cluster.

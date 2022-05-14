@@ -1,6 +1,8 @@
 # VScode environment
 .dccache
 .env
+
+# Terraform and Kubectl 
 *.tfvars
 !*.auto.tfvars
 .terraform
@@ -9,3 +11,6 @@ kubectl.exe
 kubectl.exe.sha256
 .terraform.tfstate.lock.info
 terraform.tfstate
+
+# Kubernetes secret
+deployment/secret.yaml

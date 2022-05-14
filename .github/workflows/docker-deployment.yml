@@ -47,6 +47,9 @@ jobs:
     steps:
       - name: setup kubectl cli
         uses: azure/setup-kubectl@v2.0
+        
+      - name: Check out the repo
+        uses: actions/checkout@v3
 
       # Set the target AKS cluster.
       - uses: Azure/k8s-set-context@v2
@@ -60,12 +63,12 @@ jobs:
           container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
           secret-name: demo-k8s-secret
 
-      - uses: Azure/k8s-deploy@v1.4
+      - uses: Azure/k8s-deploy@v1
         with:
           action: deploy
           manifests: |
-            deployment/backend.yml
-            deployment/frontend.yml
+            manifests/backend.yaml
+            manifests/frontend.yaml
           images: |
             syahmiahmad/feedmepos-backend:latest
             syahmiahmad/feedmepos-frontend:latest

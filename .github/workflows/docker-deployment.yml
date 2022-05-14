@@ -64,8 +64,8 @@ jobs:
         with:
           action: deploy
           manifests: |
-            manifests/backend.yaml
-            manifests/frontend.yaml
+            ${{ github.workspace }}/manifests/backend.yaml
+            ${{ github.workspace }}/manifests/frontend.yaml
           images: |
             syahmiahmad/feedmepos-backend:latest
             syahmiahmad/feedmepos-frontend:latest

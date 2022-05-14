@@ -64,8 +64,8 @@ jobs:
         with:
           action: deploy
           manifests: |
-            deployment/backend.yaml
-            deployment/frontend.yaml
+            manifests/backend.yaml
+            manifests/frontend.yaml
           images: |
             syahmiahmad/feedmepos-backend:latest
             syahmiahmad/feedmepos-frontend:latest

@@ -1,25 +1,26 @@
 ## FeedMe DevOps Engineer Take-Home Assignment
 
-Listed below are the technologies stack used for the project CI/CD pipeline and deployment.
+Listed below are the technology stack used for this project CI/CD pipeline and deployment.
 
 ### Terraform
 
 - Known for its Infrastructure as Code (IaC).
-- Used primarily for quick and convenient creation of Azure AKS cluster.
-- The Terraform config file can be found inside the terraform folder.
+- Used primarily for a quick and convenient creation of Azure AKS cluster.
+- The Terraform config files can be found inside the terraform folder.
 
 ### Azure AKS cluster
 
-- The platform of deployment chosen.
+- The selected platform of deployment.
 
 ### Docker and Docker-compose
 
 - Containerization of the apps in the project.
+- Used in tangent with Kubernetes.
 
 ### Github Actions
 
 - The main CI/CD tool for this project.
-- Only triggers if there is any commit push to the main branch.
+- Only triggers if there is any commit pushed to the main branch.
 - Mainly used to build docker image + push to the dockerhub and deploy to the AKS cluster.
 
 ### Helm Chart
@@ -33,5 +34,5 @@ Listed below are the technologies stack used for the project CI/CD pipeline and 
 
 ### Prometheus and Grafana
 
-- The monitoring stack chosen to monitor the metric data collection and metric visualizations in the kubernetes cluster.
+- The monitoring stack used for metric data collection and metric visualizations in the kubernetes cluster.
 - The metrics includes CPU, memory and storage of the cluster.

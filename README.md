@@ -32,7 +32,6 @@ Listed below are the technology stack used for this project CI/CD pipeline and d
 - Proxy used to configure the communication between FrontEnd and BackEnd inside the cluster.
 - Can also be used to redirect the default IP address provided by the LoadBalancer to an owned DNS domain.
 
-### Prometheus and Grafana
+### Elastic Search, Logstash, Kibana
 
-- The monitoring stack used for metric data collection and metric visualizations in the kubernetes cluster.
-- The metrics includes CPU, memory and storage of the cluster.
+- The monitoring stack used for log collection in the kubernetes cluster.

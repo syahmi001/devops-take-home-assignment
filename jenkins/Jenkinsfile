@@ -4,7 +4,6 @@ pipeline {
         nodejs 'NODEJS'
     }
     environment{
-        GITLAB_CREDS = credentials('GITLAB_TOKEN')
         DOCKERHUB_CREDS = credentials('DOCKERHUB_CREDS')
     }
 

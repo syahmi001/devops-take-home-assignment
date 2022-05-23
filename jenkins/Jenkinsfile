@@ -15,12 +15,12 @@ pipeline {
             }
         }
 
-        // stage('Remove Previous Docker Images'){
-        //     steps{
-        //         sh "docker rmi syahmiahmad/feedmepos-frontend:${params.VERSION}"
-        //         sh "docker rmi syahmiahmad/feedmepos-backend:${params.VERSION}"
-        //     }
-        // }
+        stage('Remove Previous Docker Images'){
+            steps{
+                sh "docker rmi syahmiahmad/feedmepos-frontend:${params.VERSION}"
+                sh "docker rmi syahmiahmad/feedmepos-backend:${params.VERSION}"
+            }
+        }
 
         stage('Build Backend Docker Image'){
             steps{
@@ -98,9 +98,7 @@ pipeline {
         
         stage("Get External link") {
 			steps {
-				withEnv(["KUBECONFIG=terraform/${params.DEPLOY}/config.yaml"]) {
-                    sh 'kubectl get svc frontend-service'
-				}				
+                sh 'kubectl get svc frontend-service'			
 			}
 		}
     }

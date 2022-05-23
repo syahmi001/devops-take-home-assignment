@@ -35,3 +35,4 @@ Listed below are the technology stack used for this project CI/CD pipeline and d
 ### Elastic Search, Logstash, Kibana
 
 - The monitoring stack used for log collection in the kubernetes cluster.
+- Test

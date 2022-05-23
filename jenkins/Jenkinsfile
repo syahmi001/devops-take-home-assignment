@@ -1,0 +1,108 @@
+pipeline {
+    agent any
+    tools{
+        nodejs 'NODEJS'
+    }
+    environment{
+        GITLAB_CREDS = credentials('GITLAB_TOKEN')
+        DOCKERHUB_CREDS = credentials('DOCKERHUB_TOKEN')
+    }
+
+    stages {
+
+        stage('Dockerhub log in'){
+            steps{
+                sh 'docker login -u $DOCKERHUB_TOKEN_USR -p $DOCKERHUB_TOKEN_PSW'
+            }
+        }
+
+        stage('Remove Previous Docker Images'){
+            steps{
+                sh "docker rmi syahmiahmad/feedmepos-frontend:${params.VERSION}"
+                sh "docker rmi syahmiahmad/feedmepos-backend:${params.VERSION}"
+            }
+        }
+
+        stage('Build Backend Docker Image'){
+            steps{
+                dir('backend'){
+                    sh "docker build -t syahmiahmad/feedmepos-backend:${params.VERSION} ."
+                }
+            }
+        }
+
+        stage('Build Frontend Docker Image'){
+            steps{
+                dir('frontend'){
+                    sh "docker build -t syahmiahmad/feedmepos-frontend:${params.VERSION} ."
+                }
+            }
+        }
+        
+        stage('Push Docker Image to DockerHUb'){
+            steps{
+                sh "docker push syahmiahmad/feedmepos-backend:${params.VERSION}"
+                sh "docker push syahmiahmad/feedmepos-frontend:${params.VERSION}"
+            }
+        }    
+
+        // For each kubeconfig, it will be inside their own terraform file
+        stage("Get current Azure kubernetes context") { 
+			steps {
+				sh 'kubectl config get-contexts'
+                sh 'kubectl get nodes'	
+			}
+		}
+
+        // stage("Providing Secret Access DockerHub") {
+        //     when {
+		// 		expression {
+		// 			params.BUILD_TYPE == 'First'
+		// 		}
+		// 	}
+		// 	steps {
+		// 		withEnv(["KUBECONFIG=terraform/${params.DEPLOY}/config.yaml"]) {
+        //             sh """
+        //             kubectl create secret docker-registry gitlab-auth \
+        //             --docker-server=https://registry.gitlab.com \
+        //             --docker-username=$GITLAB_CREDS_USR \
+        //             --docker-password=$GITLAB_CREDS_PSW \
+        //             --docker-email=syahmi.ahmad001@gmail.com
+        //             """
+		// 		}				
+		// 	}
+		// }
+
+        stage("Initiate All manifest manifest") {
+			steps {
+                sh 'kubectl apply -f manifests/secret.yaml'
+                sh 'kubectl apply -f manifests/configmap.yaml'
+                sh 'kubectl apply -f manifests/mongodb.yaml'
+                sh 'kubectl apply -f manifests/backend.yaml'
+                sh 'kubectl apply -f manifests/frontend.yaml'				
+			}
+        }
+
+        stage("Rollout all deployments") {
+			steps {
+                sh 'kubectl rollout restart deployments	app-backend'
+                sh 'kubectl rollout restart deployments	app-frontend' 
+			}
+		}
+
+        stage("Timeout for deployment") {
+
+			steps {
+                sleep(time: 1, unit: "MINUTES")				
+			}
+		}
+        
+        stage("Get External link") {
+			steps {
+				withEnv(["KUBECONFIG=terraform/${params.DEPLOY}/config.yaml"]) {
+                    sh 'kubectl get svc frontend-service'
+				}				
+			}
+		}
+    }
+}
